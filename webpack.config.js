@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
@@ -13,6 +14,10 @@ module.exports = {
       containers: r('src/js/components/containers'),
       presents: r('src/js/components/presents'),
     },
+    modules: [
+      'node_modules',
+      r('src/js'),
+    ],
   },
   devtool: 'source-map',
   module: {
@@ -36,6 +41,9 @@ module.exports = {
     new HtmlWebPackPlugin({
       template: './src/index.html',
       filename: './index.html',
+    }),
+    new webpack.DefinePlugin({
+      MODE: '"development"',
     }),
   ],
 };
