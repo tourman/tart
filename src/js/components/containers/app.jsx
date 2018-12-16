@@ -1,8 +1,14 @@
 import React, {Component} from 'react';
+import AppWrapper from 'presents/app-wrapper';
+import Picture from 'presents/picture';
 
 class App extends Component {
   render() {
-    return <div>Tart started!</div>;
+    return (
+      <AppWrapper>
+        <Picture/>
+      </AppWrapper>
+    );
   }
 };
 
