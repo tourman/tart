@@ -8,6 +8,7 @@ module.exports = {
       '.js',
     ],
   },
+  devtool: 'source-map',
   module: {
     rules: [
       {
