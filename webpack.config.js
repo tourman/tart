@@ -13,6 +13,7 @@ module.exports = {
     alias: {
       containers: r('src/js/components/containers'),
       presents: r('src/js/components/presents'),
+      stores: r('src/js/stores'),
     },
     modules: [
       'node_modules',
