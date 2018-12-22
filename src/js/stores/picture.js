@@ -1,26 +1,41 @@
 import { ReduceStore } from 'flux/utils';
 import { fromJS } from 'immutable';
+import Reducer from 'reducers/picture';
+
+const reducer = new Reducer();
 
 class PictureStore extends ReduceStore {
   getInitialState() {
-    const state = {
-      size: 500,
-      circles: [], // x, y, size for each
-    };
-    return fromJS(state);
+    const muttableState = reducer.constructor.getInitialState();
+    const immutableState = this.toImmutable(muttableState);
+    return immutableState;
   }
 
-  reduce(state, action) {
+  reduce(immutableState, action) {
+    const muttableState = this.fromImmutable(immutableState);
+    const newMuttableState = this.reduceMutable(muttableState, action);
+    const newImmutableState = this.toImmutable(newMuttableState);
+    return newImmutableState;
+  }
+
+  reduceMutable(state, action) {
     let newState;
-    switch (action.name) {
-      case 'add':
-        newState = state.updateIn(['circles'], circles => circles.push(action.payload));
-        break;
-      default:
-        newState = state;
-        break;
+    if (reducer[action.name]) {
+      newState = reducer[action.name](state, action.payload);
+    } else {
+      newState = state;
     }
     return newState;
+  }
+
+  fromImmutable(immutableState) {
+    const muttableState = immutableState.toJS();
+    return muttableState;
+  }
+
+  toImmutable(muttableState) {
+    const immutableState = fromJS(muttableState);
+    return immutableState;
   }
 }
 

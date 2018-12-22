@@ -14,6 +14,7 @@ module.exports = {
       containers: r('src/js/components/containers'),
       presents: r('src/js/components/presents'),
       stores: r('src/js/stores'),
+      reducers: r('src/js/reducers'),
     },
     modules: [
       'node_modules',

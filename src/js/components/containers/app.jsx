@@ -15,8 +15,8 @@ class App extends Component {
   }
 
   static calculateState() {
-    const state = store.getState();
-    const mutableState = state.toJS();
+    const immutableState = store.getState();
+    const mutableState = immutableState.toJS();
     return mutableState;
   }
 
