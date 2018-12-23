@@ -1,4 +1,4 @@
-import Service from 'stores/picture/service';
+import Service from 'stores/linen/service';
 
 /**
  * All methods should accept 2 params: state, payload
@@ -8,13 +8,13 @@ class PictureReducer {
     this.service = service || new Service();
   }
 
-  'circle.add'(...args) {
+  'figure.add'(...args) {
     const newState = this.service.add(...args);
     newState.openForResizing = true;
     return newState;
   }
 
-  'circle.last.resize'(state, payload) {
+  'figure.last.resize'(state, payload) {
     let newState;
     if (state.openForResizing) {
       newState = this.service.updateLast(state, payload);
@@ -24,7 +24,7 @@ class PictureReducer {
     return newState;
   }
 
-  'circle.last.update'(...args) {
+  'figure.last.update'(...args) {
     const newState = this.service.updateLast(...args);
     newState.openForResizing = false;
     return newState;

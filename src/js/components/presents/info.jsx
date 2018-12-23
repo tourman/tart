@@ -16,7 +16,7 @@ const bar = props => (
   </div>
 );
 
-export default props => {
+const Info = props => {
   const memo = {
     positive: {
       color: 'green',
@@ -27,18 +27,18 @@ export default props => {
       square: 0,
     },
   };
-  const circles = props.circles.map(circle => {
-    const square = Math.pow(circle.radius, 2);
-    circle = {
-      weight: circle.weight,
+  const figures = props.figures.map(figure => {
+    const square = Math.pow(figure.radius, 2);
+    figure = {
+      weight: figure.weight,
       square,
     };
-    return circle;
+    return figure;
   });
-  const totalSquare = circles.reduce((memo, circle) => memo + circle.square, 0);
-  const entities = circles.reduce((memo, circle) => {
-    const entity = memo[circle.weight];
-    entity.square += circle.square;
+  const totalSquare = figures.reduce((memo, figure) => memo + figure.square, 0);
+  const entities = figures.reduce((memo, figure) => {
+    const entity = memo[figure.weight];
+    entity.square += figure.square;
     return memo;
   }, memo);
   const elements = Object.entries(entities)
@@ -55,3 +55,5 @@ export default props => {
   ;
   return elements;
 };
+
+export default Info;

@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom';
-import app from 'containers/app';
+import app from 'containers/app-element';
 import dispatcher from 'dispatcher';
 import css from '../css/style.css';
 

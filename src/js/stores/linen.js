@@ -1,7 +1,7 @@
 import { ReduceStore } from 'flux/utils';
 import { fromJS } from 'immutable';
-import Reducer from 'stores/picture/reducer';
-import Service from 'stores/picture/service';
+import Reducer from 'stores/linen/reducer';
+import Service from 'stores/linen/service';
 
 class PictureStore extends ReduceStore {
   initialize() {

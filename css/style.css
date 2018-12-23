@@ -1,11 +1,11 @@
-.picture {
+.linen {
   overflow: hidden;
   position: relative;
   margin: 20px;
   background: #f0f0f0;
 }
 
-.picture__circle {
+.linen__figure {
   position: absolute;
   border-radius: 10000px;
 }

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Container } from 'flux/utils';
 import AppWrapper from 'presents/app-wrapper';
-import Picture from 'presents/picture';
-import BarSet from 'presents/bar-set';
-import Store from 'stores/picture';
+import Linen from 'presents/linen';
+import Info from 'presents/info';
+import Store from 'stores/linen';
 import dispatcher from 'dispatcher';
 
 const store = new Store(dispatcher);
@@ -23,9 +23,9 @@ class App extends Component {
 
   render() {
     return (
-      <AppWrapper {...this.state}>
-        <Picture {...this.state} />
-        <BarSet {...this.state} />
+      <AppWrapper>
+        <Linen {...this.state} />
+        <Info {...this.state} />
       </AppWrapper>
     );
   }

@@ -3,7 +3,7 @@ class PictureService {
     const state = {
       size: 500,
       minRadius: 5,
-      circles: [/*
+      figures: [/*
         {
           x, //center
           y, //center
@@ -34,7 +34,7 @@ class PictureService {
       radius: state.minRadius,
       weight,
     };
-    state.circles.push(circle);
+    state.figures.push(circle);
     return state;
   }
 
@@ -44,12 +44,12 @@ class PictureService {
    * @param {number} payload[].y
    */
   updateLast(state, payload) {
-    const circle = state.circles.pop();
+    const circle = state.figures.pop();
     const width = payload.x - circle.x;
     const height = payload.y - circle.y;
     const radius = Math.sqrt(width * width + height * height);
     circle.radius = Math.max(Math.ceil(radius), state.minRadius);
-    state.circles.push(circle);
+    state.figures.push(circle);
     return state;
   }
 }
