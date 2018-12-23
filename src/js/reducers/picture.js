@@ -1,5 +1,8 @@
 import Service from 'services/picture';
 
+/**
+ * All methods should accept 2 params: state, payload
+ */
 class PictureReducer {
   constructor({ service }) {
     this.service = service || new Service();
@@ -7,11 +10,23 @@ class PictureReducer {
 
   'circle.add'(...args) {
     const newState = this.service.add(...args);
+    newState.openForResizing = true;
+    return newState;
+  }
+
+  'circle.last.resize'(state, payload) {
+    let newState;
+    if (state.openForResizing) {
+      newState = this.service.updateLast(state, payload);
+    } else {
+      newState = state;
+    }
     return newState;
   }
 
   'circle.last.update'(...args) {
     const newState = this.service.updateLast(...args);
+    newState.openForResizing = false;
     return newState;
   }
 }

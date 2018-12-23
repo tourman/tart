@@ -9,7 +9,6 @@ class PictureService {
           y, //center
           radius,
           color,
-          resizing, //process of resizing
         }
       */],
     };

@@ -21,7 +21,7 @@ export default props => (
     }}
     ref={el => ref = el}
     onMouseDown={mouse('circle.add')}
-    //onMouseMove={mouse('circle.last.resize')}
+    onMouseMove={mouse('circle.last.resize')}
     onMouseUp={mouse('circle.last.update')}
   >
     {props.children}
