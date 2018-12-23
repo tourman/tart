@@ -19,13 +19,20 @@ class PictureService {
    * @param {Object[]} payload
    * @param {number} payload[].x
    * @param {number} payload[].y
+   * @param {boolean} payload[].positive
    */
   add(state, payload) {
+    const colorMap = {
+      true: 'green',
+      false: 'red',
+    };
+    const positive = !!payload.positive;
+    const color = colorMap[positive];
     const circle = {
       x: payload.x,
       y: payload.y,
       radius: state.minRadius,
-      color: 'red',
+      color,
     };
     state.circles.push(circle);
     return state;

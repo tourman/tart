@@ -6,6 +6,7 @@ const mouse = name => e => dispatcher.dispatch({
   payload: {
     x: e.clientX - ref.getBoundingClientRect().left,
     y: e.clientY - ref.getBoundingClientRect().top,
+    positive: !(e.ctrlKey || e.shiftKey || e.button === 2),
   },
 });
 
