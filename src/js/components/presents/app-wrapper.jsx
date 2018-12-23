@@ -20,8 +20,9 @@ export default props => (
       background: '#f0f0f0'
     }}
     ref={el => ref = el}
-    onMouseDown={mouse('add')}
-    onMouseUp={mouse('updateLast')}
+    onMouseDown={mouse('circle.add')}
+    //onMouseMove={mouse('circle.last.resize')}
+    onMouseUp={mouse('circle.last.update')}
   >
     {props.children}
   </div>

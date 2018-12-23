@@ -1,12 +1,18 @@
 import { ReduceStore } from 'flux/utils';
 import { fromJS } from 'immutable';
 import Reducer from 'reducers/picture';
-
-const reducer = new Reducer();
+import Service from 'services/picture';
 
 class PictureStore extends ReduceStore {
+  initialize() {
+    const service = new Service();
+    this.service = service;
+    this.reducer = new Reducer({ service });
+  }
+
   getInitialState() {
-    const muttableState = reducer.constructor.getInitialState();
+    this.initialize();
+    const muttableState = this.service.getInitialState();
     const immutableState = this.toImmutable(muttableState);
     return immutableState;
   }
@@ -20,8 +26,9 @@ class PictureStore extends ReduceStore {
 
   reduceMutable(state, action) {
     let newState;
-    if (reducer[action.name]) {
-      newState = reducer[action.name](state, action.payload);
+    const isMethod = this.reducer[action.name] && typeof this.reducer[action.name] === 'function';
+    if (isMethod) {
+      newState = this.reducer[action.name](state, action.payload);
     } else {
       newState = state;
     }

@@ -11,10 +11,8 @@ module.exports = {
       '.js',
     ],
     alias: {
-      containers: r('src/js/components/containers'),
-      presents: r('src/js/components/presents'),
-      stores: r('src/js/stores'),
-      reducers: r('src/js/reducers'),
+      containers: 'components/containers',
+      presents: 'components/presents',
     },
     modules: [
       'node_modules',
