@@ -2,7 +2,7 @@ class PictureService {
   getInitialState() {
     const state = {
       size: 500,
-      defaultRadius: 10,
+      minRadius: 5,
       circles: [/*
         {
           x, //center
@@ -24,7 +24,7 @@ class PictureService {
     const circle = {
       x: payload.x,
       y: payload.y,
-      radius: state.defaultRadius,
+      radius: state.minRadius,
       color: 'red',
     };
     state.circles.push(circle);
@@ -41,7 +41,7 @@ class PictureService {
     const width = payload.x - circle.x;
     const height = payload.y - circle.y;
     const radius = Math.sqrt(width * width + height * height);
-    circle.radius = Math.ceil(radius);
+    circle.radius = Math.max(Math.ceil(radius), state.minRadius);
     state.circles.push(circle);
     return state;
   }
