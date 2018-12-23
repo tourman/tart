@@ -1,3 +1,11 @@
+import {
+  last,
+  mapValues,
+  groupBy,
+  sum,
+  sumBy,
+} from 'lodash';
+
 class PictureService {
   getInitialState() {
     const state = {
@@ -43,9 +51,8 @@ class PictureService {
    * @param {number} payload[].y
    */
   updateLast(state, payload) {
-    const circle = state.figures.pop();
+    const circle = last(state.figures);
     circle.weight = this.getWeight(circle, payload);
-    state.figures.push(circle);
     const weights = this.getWeights(state);
     Object.assign(state, weights);
     return state;
@@ -58,22 +65,16 @@ class PictureService {
     return weight;
   }
 
-  /* eslint-disable no-param-reassign */
   getWeights(state) {
-    const weights = {};
-    const typeWeights = state.figures.reduce((memo, figure) => {
-      memo[figure.type] = memo[figure.type] || 0;
-      memo[figure.type] += figure.weight;
-      return memo;
-    }, {});
-    weights.totalWeight = Object.values(typeWeights).reduce((memo, weight) => memo + weight, 0);
-    weights.typeRelativeWeights = Object.entries(typeWeights).reduce((memo, [type, weight]) => {
-      memo[type] = weight / state.totalWeight;
-      return memo;
-    }, {});
-    return weights;
+    const figuresByType = groupBy(state.figures, 'type');
+    const typeWeights = mapValues(figuresByType, figures => sumBy(figures, 'weight'));
+    const totalWeight = sum(Object.values(typeWeights));
+    const typeRelativeWeights = mapValues(typeWeights, weight => weight / totalWeight);
+    return {
+      typeRelativeWeights,
+      totalWeight,
+    };
   }
-  /* eslint-enable no-param-reassign */
 }
 
 export default PictureService;
