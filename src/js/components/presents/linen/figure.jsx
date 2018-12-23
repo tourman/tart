@@ -3,7 +3,7 @@ import { mapValues } from 'lodash';
 
 const Figure = props => {
   const numberProps = {};
-  const radius = Math.sqrt(props.weight);
+  const radius = props.size;
   numberProps.left = props.x - radius;
   numberProps.top = props.y - radius;
   numberProps.width = 2 * radius;

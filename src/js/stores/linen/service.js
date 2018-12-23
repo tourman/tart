@@ -17,6 +17,7 @@ class PictureService {
           x, //center
           y, //center
           weight,
+          size,
           type,
         }
       */],
@@ -52,17 +53,22 @@ class PictureService {
    */
   updateLast(state, payload) {
     const circle = last(state.figures);
-    circle.weight = this.getWeight(circle, payload);
+    const weightAndSize = this.getWeightAndSize(circle, payload);
+    Object.assign(circle, weightAndSize);
     const weights = this.getWeights(state);
     Object.assign(state, weights);
     return state;
   }
 
-  getWeight(circle, payload) {
+  getWeightAndSize(circle, payload) {
     const width = payload.x - circle.x;
     const height = payload.y - circle.y;
     const weight = width * width + height * height;
-    return weight;
+    const size = Math.sqrt(weight);
+    return {
+      weight,
+      size,
+    };
   }
 
   getWeights(state) {
