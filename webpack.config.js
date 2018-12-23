@@ -35,7 +35,7 @@ module.exports = {
           'style-loader',
           'css-loader',
         ],
-      }
+      },
     ],
   },
   mode: 'development',
