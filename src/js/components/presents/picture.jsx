@@ -8,7 +8,6 @@ export default props => (
     numberProps.top = circle.y - circle.radius;
     numberProps.width = 2 * circle.radius;
     numberProps.height = 2 * circle.radius;
-    numberProps.borderRadius = props.size;
 
     const stringProps = mapValues(numberProps, number => `${number}px`);
 
@@ -21,12 +20,12 @@ export default props => (
     const style = {
       backgroundColor: color,
       opacity: 0.5,
-      position: 'absolute',
       ...stringProps,
     };
 
     return (
       <div
+        className="picture__circle"
         style={style}
         key={index}
       >
