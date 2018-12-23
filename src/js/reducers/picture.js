@@ -5,13 +5,13 @@ class PictureReducer {
     this.service = service || new Service();
   }
 
-  'circle.add'(state, payload) {
-    const newState = this.service.add(state, payload);
+  'circle.add'(...args) {
+    const newState = this.service.add(...args);
     return newState;
   }
 
-  'circle.last.update'(state, payload) {
-    const newState = this.service.updateLast(state, payload);
+  'circle.last.update'(...args) {
+    const newState = this.service.updateLast(...args);
     return newState;
   }
 }
