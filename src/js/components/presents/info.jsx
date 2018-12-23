@@ -1,50 +1,44 @@
 import React from 'react';
 
-const bar = props => {
-  const className = [
-    'app__element',
-    'info-total-bar',
-    `figure_type_${props.typeName}`,
-  ].join(' ');
-
-  return (
-    <div
-      className={className}
-      style={{
-        width: `${props.width}px`,
-        opacity: 0.5,
-      }}
-      key={props.typeName}
-    >
-    </div>
-  );
-};
-
 const Info = props => {
   const memo = {
-    positive: {
-      weight: 0,
-    },
-    negative: {
-      weight: 0,
-    },
+    total: 0,
+    types: {},
   };
-  const totalWeight = props.figures.reduce((memo, figure) => memo + figure.weight, 0);
-  const types = props.figures.reduce((memo, figure) => {
-    const type = memo[figure.type];
-    type.weight += figure.weight;
+  const weights = props.figures.reduce((memo, figure) => {
+    memo.total += figure.weight;
+    memo.types[figure.type] = memo.types[figure.type] || 0;
+    memo.types[figure.type] += figure.weight;
     return memo;
   }, memo);
-  const elements = Object.entries(types)
-    .map(([typeName, type]) => {
-      const width = (type.weight / totalWeight) * props.size;
+  const elements = Object.entries(weights.types)
+    .map(([type, weight]) => {
+      const width = (weight / weights.total) * props.size;
       const typeProps = {
        width,
-       typeName,
+       type,
       };
       return typeProps;
     })
-    .map(bar)
+    .map(props => {
+      const className = [
+        'app__element',
+        'info-total-bar',
+        `figure_type_${props.type}`,
+      ].join(' ');
+
+      return (
+        <div
+          className={className}
+          style={{
+            width: `${props.width}px`,
+            opacity: 0.5,
+          }}
+          key={props.type}
+        >
+        </div>
+      );
+    })
   ;
   return elements;
 };
