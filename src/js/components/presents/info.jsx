@@ -4,7 +4,7 @@ const bar = props => {
   const className = [
     'app__element',
     'info-total-bar',
-    `figure_type_${props.type}`,
+    `figure_type_${props.typeName}`,
   ].join(' ');
 
   return (
@@ -14,7 +14,7 @@ const bar = props => {
         width: `${props.width}px`,
         opacity: 0.5,
       }}
-      key={props.type}
+      key={props.typeName}
     >
     </div>
   );
@@ -23,34 +23,26 @@ const bar = props => {
 const Info = props => {
   const memo = {
     positive: {
-      square: 0,
+      weight: 0,
     },
     negative: {
-      square: 0,
+      weight: 0,
     },
   };
-  const figures = props.figures.map(figure => {
-    const square = Math.pow(figure.radius, 2);
-    figure = {
-      type: figure.type,
-      square,
-    };
-    return figure;
-  });
-  const totalSquare = figures.reduce((memo, figure) => memo + figure.square, 0);
-  const entities = figures.reduce((memo, figure) => {
-    const entity = memo[figure.type];
-    entity.square += figure.square;
+  const totalWeight = props.figures.reduce((memo, figure) => memo + figure.weight, 0);
+  const types = props.figures.reduce((memo, figure) => {
+    const type = memo[figure.type];
+    type.weight += figure.weight;
     return memo;
   }, memo);
-  const elements = Object.entries(entities)
-    .map(([type, entity]) => {
-      const width = (entity.square / totalSquare) * props.size;
-      const entityProps = {
+  const elements = Object.entries(types)
+    .map(([typeName, type]) => {
+      const width = (type.weight / totalWeight) * props.size;
+      const typeProps = {
        width,
-       type,
+       typeName,
       };
-      return entityProps;
+      return typeProps;
     })
     .map(bar)
   ;

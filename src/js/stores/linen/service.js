@@ -7,7 +7,7 @@ class PictureService {
         {
           x, //center
           y, //center
-          radius,
+          weight,
           type,
         }
       */],
@@ -31,7 +31,7 @@ class PictureService {
     const circle = {
       x: payload.x,
       y: payload.y,
-      radius: state.minRadius,
+      weight: 0,
       type,
     };
     state.figures.push(circle);
@@ -47,8 +47,7 @@ class PictureService {
     const circle = state.figures.pop();
     const width = payload.x - circle.x;
     const height = payload.y - circle.y;
-    const radius = Math.sqrt(width * width + height * height);
-    circle.radius = Math.max(Math.ceil(radius), state.minRadius);
+    circle.weight = width * width + height * height;
     state.figures.push(circle);
     return state;
   }

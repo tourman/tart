@@ -3,10 +3,11 @@ import { mapValues } from 'lodash';
 
 const Figure = props => {
   const numberProps = {};
-  numberProps.left = props.x - props.radius;
-  numberProps.top = props.y - props.radius;
-  numberProps.width = 2 * props.radius;
-  numberProps.height = 2 * props.radius;
+  const radius = Math.sqrt(props.weight);
+  numberProps.left = props.x - radius;
+  numberProps.top = props.y - radius;
+  numberProps.width = 2 * radius;
+  numberProps.height = 2 * radius;
 
   const stringProps = mapValues(numberProps, number => `${number}px`);
 
