@@ -8,7 +8,7 @@ class PictureService {
           x, //center
           y, //center
           radius,
-          color,
+          weight,
         }
       */],
     };
@@ -22,17 +22,17 @@ class PictureService {
    * @param {boolean} payload[].positive
    */
   add(state, payload) {
-    const colorMap = {
-      true: 'green',
-      false: 'red',
+    const weightMap = {
+      true: 'positive',
+      false: 'negative',
     };
     const positive = !!payload.positive;
-    const color = colorMap[positive];
+    const weight = weightMap[positive];
     const circle = {
       x: payload.x,
       y: payload.y,
       radius: state.minRadius,
-      color,
+      weight,
     };
     state.circles.push(circle);
     return state;

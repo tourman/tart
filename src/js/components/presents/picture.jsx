@@ -12,8 +12,14 @@ export default props => (
 
     const stringProps = mapValues(numberProps, number => `${number}px`);
 
+    const colorMap = {
+      positive: 'green',
+      negative: 'red',
+    };
+    const color = colorMap[circle.weight];
+
     const style = {
-      backgroundColor: circle.color,
+      backgroundColor: color,
       opacity: 0.5,
       position: 'absolute',
       ...stringProps,
