@@ -1,4 +1,4 @@
-import Service from 'services/picture';
+import Service from 'stores/picture/service';
 
 /**
  * All methods should accept 2 params: state, payload
