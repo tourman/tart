@@ -8,5 +8,5 @@ ReactDOM.render(app, appEl);
 
 /* global MODE */
 if (MODE === 'development') {
-  window.dispatcher = dispatcher;
+  window._dispatcher = dispatcher;
 }

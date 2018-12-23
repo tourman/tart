@@ -1,4 +1,5 @@
 import React from 'react';
+import dispatcher from 'dispatcher';
 
 let ref;
 const mouse = name => e => dispatcher.dispatch({
