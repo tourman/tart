@@ -4,7 +4,7 @@ const bar = props => {
   const className = [
     'app__element',
     'info-total-bar',
-    `figure_weight_${props.weight}`,
+    `figure_type_${props.type}`,
   ].join(' ');
 
   return (
@@ -14,7 +14,7 @@ const bar = props => {
         width: `${props.width}px`,
         opacity: 0.5,
       }}
-      key={props.weight}
+      key={props.type}
     >
     </div>
   );
@@ -32,23 +32,23 @@ const Info = props => {
   const figures = props.figures.map(figure => {
     const square = Math.pow(figure.radius, 2);
     figure = {
-      weight: figure.weight,
+      type: figure.type,
       square,
     };
     return figure;
   });
   const totalSquare = figures.reduce((memo, figure) => memo + figure.square, 0);
   const entities = figures.reduce((memo, figure) => {
-    const entity = memo[figure.weight];
+    const entity = memo[figure.type];
     entity.square += figure.square;
     return memo;
   }, memo);
   const elements = Object.entries(entities)
-    .map(([weight, entity]) => {
+    .map(([type, entity]) => {
       const width = (entity.square / totalSquare) * props.size;
       const entityProps = {
        width,
-       weight,
+       type,
       };
       return entityProps;
     })

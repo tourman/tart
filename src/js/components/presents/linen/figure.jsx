@@ -12,7 +12,7 @@ const Figure = props => {
 
   const className = [
     'linen__figure',
-    `figure_weight_${props.weight}`,
+    `figure_type_${props.type}`,
   ].join(' ');
 
   const style = {

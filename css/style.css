@@ -28,10 +28,10 @@ body {
   height: 40px;
 }
 
-.figure_weight_positive {
+.figure_type_positive {
   background-color: green;
 }
 
-.figure_weight_negative {
+.figure_type_negative {
   background-color: red;
 }
