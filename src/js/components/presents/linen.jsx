@@ -8,7 +8,7 @@ const mouse = name => e => dispatcher.dispatch({
   payload: {
     x: e.clientX - ref.getBoundingClientRect().left,
     y: e.clientY - ref.getBoundingClientRect().top,
-    positive: !(e.ctrlKey || e.shiftKey || e.button === 2),
+    type: (e.ctrlKey || e.shiftKey || e.button === 2) ? 'negative' : 'positive',
   },
 });
 
@@ -24,13 +24,12 @@ const Linen = props => (
     onMouseMove={mouse('figure.last.resize')}
     onMouseUp={mouse('figure.last.update')}
   >
-    {props.figures.map((figure, key) => {
-      const props = {
-        key,
-        ...figure,
-      };
-      return <Figure {...props} />;
-    })}
+    {props.figures.map((figure, index) => (
+      <Figure
+        {...figure}
+        key={index}
+      />
+    ))}
   </div>
 );
 
