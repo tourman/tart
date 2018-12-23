@@ -44,13 +44,18 @@ class PictureService {
    */
   updateLast(state, payload) {
     const circle = state.figures.pop();
-    const width = payload.x - circle.x;
-    const height = payload.y - circle.y;
-    circle.weight = width * width + height * height;
+    circle.weight = this.getWeight(circle, payload);
     state.figures.push(circle);
     const weights = this.getWeights(state);
     Object.assign(state, weights);
     return state;
+  }
+
+  getWeight(circle, payload) {
+    const width = payload.x - circle.x;
+    const height = payload.y - circle.y;
+    const weight = width * width + height * height;
+    return weight;
   }
 
   /* eslint-disable no-param-reassign */
