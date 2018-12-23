@@ -27,6 +27,7 @@ const Linen = props => (
     {props.figures.map((figure, index) => (
       <Figure
         {...figure}
+        index={index}
         key={index}
       />
     ))}

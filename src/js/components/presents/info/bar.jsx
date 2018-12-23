@@ -12,7 +12,6 @@ const Bar = props => {
       className={className}
       style={{
         width: `${props.width}px`,
-        opacity: 0.5,
       }}
     >
     </div>

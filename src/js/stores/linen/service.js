@@ -39,6 +39,7 @@ class PictureService {
     const circle = {
       x: payload.x,
       y: payload.y,
+      size: 0,
       weight: 0,
       type: payload.type,
     };

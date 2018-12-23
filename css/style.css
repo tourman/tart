@@ -15,11 +15,15 @@ body {
   overflow: hidden;
   position: relative;
   background: #f0f0f0;
+  user-select: none;
 }
 
 .linen__figure {
   position: absolute;
   border-radius: 10000px;
+  text-align: center;
+  font-family: "Tahoma", sans-serif;
+  overflow: hidden;
 }
 
 .info-total-bar {
@@ -29,9 +33,9 @@ body {
 }
 
 .figure_type_positive {
-  background-color: green;
+  background-color: rgba(0, 127, 0, 0.5);
 }
 
 .figure_type_negative {
-  background-color: red;
+  background-color: rgba(255, 0, 0, 0.5);
 }

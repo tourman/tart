@@ -4,10 +4,12 @@ import { mapValues } from 'lodash';
 const Figure = props => {
   const numberProps = {};
   const radius = props.size;
+  const diameter = 2 * radius;
   numberProps.left = props.x - radius;
   numberProps.top = props.y - radius;
-  numberProps.width = 2 * radius;
-  numberProps.height = 2 * radius;
+  numberProps.width = diameter;
+  numberProps.height = diameter;
+  numberProps.lineHeight = diameter;
 
   const stringProps = mapValues(numberProps, number => `${number}px`);
 
@@ -17,7 +19,6 @@ const Figure = props => {
   ].join(' ');
 
   const style = {
-    opacity: 0.5,
     ...stringProps,
   };
 
@@ -26,6 +27,7 @@ const Figure = props => {
       className={className}
       style={style}
     >
+      {props.index}
     </div>
   );
 };
