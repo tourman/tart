@@ -14,7 +14,7 @@ const mouse = name => e => dispatcher.dispatch({
 
 const Linen = props => (
   <div
-    className="linen"
+    className="linen app__element"
     style={{
       width: `${props.size}px`,
       height: `${props.size}px`,

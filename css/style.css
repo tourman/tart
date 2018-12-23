@@ -1,11 +1,29 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  padding: 20px;
+}
+
+.app__element {
+  margin-bottom: 20px;
+}
+
 .linen {
   overflow: hidden;
   position: relative;
-  margin: 20px;
   background: #f0f0f0;
 }
 
 .linen__figure {
   position: absolute;
   border-radius: 10000px;
+}
+
+.info-total-bar {
+  float: left;
+  clear: both;
+  height: 40px;
 }

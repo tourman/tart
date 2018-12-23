@@ -2,14 +2,11 @@ import React from 'react';
 
 const bar = props => (
   <div
+    className="app__element info-total-bar"
     style={{
-      float: 'left',
-      clear: 'both',
       width: `${props.width}px`,
-      height: '30px',
       backgroundColor: props.color,
       opacity: 0.5,
-      marginBottom: '10px',
     }}
     key={props.weight}
   >
