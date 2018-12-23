@@ -10,21 +10,19 @@ const Figure = props => {
 
   const stringProps = mapValues(numberProps, number => `${number}px`);
 
-  const colorMap = {
-    positive: 'green',
-    negative: 'red',
-  };
-  const color = colorMap[props.weight];
+  const className = [
+    'linen__figure',
+    `figure_weight_${props.weight}`,
+  ].join(' ');
 
   const style = {
-    backgroundColor: color,
     opacity: 0.5,
     ...stringProps,
   };
 
   return (
     <div
-      className="linen__figure"
+      className={className}
       style={style}
     >
     </div>

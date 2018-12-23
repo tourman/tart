@@ -27,3 +27,11 @@ body {
   clear: both;
   height: 40px;
 }
+
+.figure_weight_positive {
+  background-color: green;
+}
+
+.figure_weight_negative {
+  background-color: red;
+}

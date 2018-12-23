@@ -1,26 +1,31 @@
 import React from 'react';
 
-const bar = props => (
-  <div
-    className="app__element info-total-bar"
-    style={{
-      width: `${props.width}px`,
-      backgroundColor: props.color,
-      opacity: 0.5,
-    }}
-    key={props.weight}
-  >
-  </div>
-);
+const bar = props => {
+  const className = [
+    'app__element',
+    'info-total-bar',
+    `figure_weight_${props.weight}`,
+  ].join(' ');
+
+  return (
+    <div
+      className={className}
+      style={{
+        width: `${props.width}px`,
+        opacity: 0.5,
+      }}
+      key={props.weight}
+    >
+    </div>
+  );
+};
 
 const Info = props => {
   const memo = {
     positive: {
-      color: 'green',
       square: 0,
     },
     negative: {
-      color: 'red',
       square: 0,
     },
   };
@@ -42,7 +47,6 @@ const Info = props => {
     .map(([weight, entity]) => {
       const width = (entity.square / totalSquare) * props.size;
       const entityProps = {
-       color: entity.color,
        width,
        weight,
       };
