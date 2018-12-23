@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Container } from 'flux/utils';
 import AppWrapper from 'presents/app-wrapper';
 import Picture from 'presents/picture';
+import BarSet from 'presents/bar-set';
 import Store from 'stores/picture';
 import dispatcher from 'dispatcher';
 
@@ -24,6 +25,7 @@ class App extends Component {
     return (
       <AppWrapper {...this.state}>
         <Picture {...this.state} />
+        <BarSet {...this.state} />
       </AppWrapper>
     );
   }
@@ -31,4 +33,4 @@ class App extends Component {
 
 const AppContainer = Container.create(App);
 
-export default <AppContainer/>;
+export default <AppContainer />;
