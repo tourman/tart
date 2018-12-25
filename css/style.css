@@ -1,6 +1,7 @@
 body {
   margin: 0;
   padding: 0;
+  font-family: "Tahoma", sans-serif;
 }
 
 .app {
@@ -38,10 +39,6 @@ body {
   margin-left: 20px;
 }
 
-.figure {
-  font-family: "Tahoma", sans-serif;
-}
-
 .figure_type_positive {
   background-color: rgba(0, 127, 0, 0.5);
 }
@@ -49,3 +46,39 @@ body {
 .figure_type_negative {
   background-color: rgba(255, 0, 0, 0.5);
 }
+
+.item {
+  float: left;
+  clear: both;
+  height: 40px;
+  line-height: 40px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.item__child {
+  position: relative;
+  float: left;
+  height: 40px;
+}
+
+.item__child:not(:last-child) {
+  margin-right: 10px;
+}
+
+.item__editor {
+  text-align: right;
+  border: 0;
+  background-color: #f0f0f0;
+  width: 220px;
+  padding-right: 10px;
+}
+
+.item__number {
+  width: 20px;
+  text-align: center;
+}
+
+.item__bar {
+}
+

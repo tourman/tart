@@ -1,4 +1,5 @@
 import {
+  chain,
   last,
   mapValues,
   groupBy,
@@ -17,6 +18,7 @@ class PictureService {
           x, //center
           y, //center
           weight,
+          relativeWeight,
           size,
           type,
         }
@@ -36,14 +38,15 @@ class PictureService {
    * @param {string} payload[].type
    */
   add(state, payload) {
-    const circle = {
+    const figure = {
       x: payload.x,
       y: payload.y,
       size: 0,
       weight: 0,
       type: payload.type,
     };
-    state.figures.push(circle);
+    state.figures.push(figure);
+    state = this.updateWeights(state);
     return state;
   }
 
@@ -53,17 +56,16 @@ class PictureService {
    * @param {number} payload[].y
    */
   updateLast(state, payload) {
-    const circle = last(state.figures);
-    const weightAndSize = this.getWeightAndSize(circle, payload);
-    Object.assign(circle, weightAndSize);
-    const weights = this.getWeights(state);
-    Object.assign(state, weights);
+    const figure = last(state.figures);
+    const weightAndSize = this.getWeightAndSize(figure, payload);
+    Object.assign(figure, weightAndSize);
+    state = this.updateWeights(state);
     return state;
   }
 
-  getWeightAndSize(circle, payload) {
-    const width = payload.x - circle.x;
-    const height = payload.y - circle.y;
+  getWeightAndSize(figure, payload) {
+    const width = payload.x - figure.x;
+    const height = payload.y - figure.y;
     const weight = width * width + height * height;
     const size = Math.sqrt(weight);
     return {
@@ -72,15 +74,32 @@ class PictureService {
     };
   }
 
+  updateWeights(state) {
+    const weights = this.getWeights(state);
+    Object.assign(state, weights);
+    state.figures = state.figures.map(this.setRelativeWeight.bind(this, state));
+    return state;
+  }
+
   getWeights(state) {
     const figuresByType = groupBy(state.figures, 'type');
     const typeWeights = mapValues(figuresByType, figures => sumBy(figures, 'weight'));
     const totalWeight = sum(Object.values(typeWeights));
-    const typeRelativeWeights = mapValues(typeWeights, weight => weight / totalWeight);
+    const typeRelativeWeights = chain(typeWeights)
+      .mapValues(weight => weight / totalWeight)
+      .mapValues(weight => weight !== weight ? 1 : weight)
+      .value()
+    ;
     return {
       typeRelativeWeights,
       totalWeight,
     };
+  }
+
+  setRelativeWeight(state, figure) {
+    figure.relativeWeight = figure.weight / state.totalWeight;
+    figure.relativeWeight = figure.relativeWeight !== figure.relativeWeight ? 1 : figure.relativeWeight;
+    return figure;
   }
 }
 
