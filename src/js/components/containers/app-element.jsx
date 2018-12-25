@@ -23,10 +23,12 @@ class App extends Component {
 
   render() {
     return (
-      <AppWrapper>
-        <Linen {...this.state} />
-        <Info {...this.state} />
-      </AppWrapper>
+      <React.StrictMode>
+        <AppWrapper>
+          <Linen {...this.state} />
+          <Info {...this.state} />
+        </AppWrapper>
+      </React.StrictMode>
     );
   }
 };
