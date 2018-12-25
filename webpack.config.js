@@ -1,56 +1,25 @@
-const webpack = require('webpack');
-const path = require('path');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
+const deepMerge = require('deepmerge');
 
-const r = path.resolve.bind(path, __dirname);
+const base = require('./webpack.base.config');
+const development = require('./webpack.development.config');
+const production = require('./webpack.production.config');
 
-module.exports = {
-  resolve: {
-    extensions: [
-      '.jsx',
-      '.js',
-    ],
-    alias: {
-      containers: 'components/containers',
-      presents: 'components/presents',
-    },
-    modules: [
-      'node_modules',
-      r('src/js'),
-    ],
-  },
-  devtool: 'source-map',
-  module: {
-    rules: [
-      {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-        },
-      },
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-        ],
-      },
-    ],
-  },
-  mode: 'development',
-  devServer: {
-    contentBase: path.join(__dirname, 'dist'),
-    compress: false,
-    port: 9000,
-  },
-  plugins: [
-    new HtmlWebPackPlugin({
-      template: './src/index.html',
-      filename: './index.html',
-    }),
-    new webpack.DefinePlugin({
-      MODE: '"development"',
-    }),
-  ],
+const envMap = {
+  production,
+  development,
 };
+const env = envMap[process.env.NODE_ENV] || development;
+
+const merge = (...configs) => {
+  const result = deepMerge(...configs);
+  result.plugins = configs.reduce((memo, config) => {
+    const configPlugins = config.plugins || [];
+    const nextMemo = memo.concat(configPlugins);
+    return nextMemo;
+  }, []);
+  return result;
+};
+
+const config = merge(base, env);
+
+module.exports = config;
