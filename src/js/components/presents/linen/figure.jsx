@@ -15,6 +15,7 @@ const Figure = props => {
 
   const className = [
     'linen__figure',
+    'figure',
     `figure_type_${props.type}`,
   ].join(' ');
 

@@ -4,8 +4,11 @@ const Bar = props => {
   const className = [
     'app__element',
     'info-total-bar',
+    'figure',
     `figure_type_${props.type}`,
   ].join(' ');
+
+  const percent = props.percent.toFixed(1);
 
   return (
     <div
@@ -14,6 +17,11 @@ const Bar = props => {
         width: `${props.width}px`,
       }}
     >
+      <span
+        className="info-total-bar__label"
+      >
+        {percent}%
+      </span>
     </div>
   );
 };

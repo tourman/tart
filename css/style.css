@@ -22,7 +22,6 @@ body {
   position: absolute;
   border-radius: 10000px;
   text-align: center;
-  font-family: "Tahoma", sans-serif;
   overflow: hidden;
 }
 
@@ -30,6 +29,17 @@ body {
   float: left;
   clear: both;
   height: 40px;
+  line-height: 40px;
+  text-align: left;
+}
+
+.info-total-bar__label {
+  float: left;
+  margin-left: 20px;
+}
+
+.figure {
+  font-family: "Tahoma", sans-serif;
 }
 
 .figure_type_positive {
