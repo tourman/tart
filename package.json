@@ -1,51 +1,42 @@
 {
   "name": "tart",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "flux": "^3.1.3",
+    "immutable": "^4.0.0-rc.12",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-scripts": "2.1.8"
+  },
   "scripts": {
-    "test": "eslint .",
-    "start": "NODE_ENV=development webpack-dev-server",
-    "build": "NODE_ENV=production webpack",
-    "pre-deploy": "rm -fr dist; git clone git@github.com:tourman/tourman.github.io.git dist; npm run-script build; cd dist; git add -A"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tourman/tart.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "tm",
+    "madm",
+    "time-management"
+  ],
+  "author": "tourman",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/tourman/tart/issues"
   },
   "homepage": "https://github.com/tourman/tart#readme",
-  "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.2.0",
-    "@babel/preset-react": "^7.0.0",
-    "babel-loader": "^8.0.4",
-    "browserslist": "^4.3.6",
-    "css-loader": "^2.0.2",
-    "editorconfig": "^0.15.2",
-    "eslint": "^5.10.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.2",
-    "eslint-plugin-react": "^7.11.1",
-    "html-loader": "^0.5.5",
-    "style-loader": "^0.23.1",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10"
+  "eslintConfig": {
+    "extends": "react-app"
   },
-  "dependencies": {
-    "deepmerge": "^3.0.0",
-    "flux": "^3.1.3",
-    "html-webpack-plugin": "^3.2.0",
-    "immutable": "^4.0.0-rc.12",
-    "lodash": "^4.17.11",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
-    "webpack": "^4.27.1"
-  }
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Container } from 'flux/utils';
-import AppWrapper from 'presents/app-wrapper';
-import Linen from 'presents/linen';
-import Info from 'presents/info';
-import Store from 'stores/linen';
-import dispatcher from 'dispatcher';
+import AppWrapper from '../presents/app-wrapper';
+import Linen from '../presents/linen';
+import Info from '../presents/info';
+import Store from '../../stores/linen';
+import dispatcher from '../../dispatcher';
 
 const store = new Store(dispatcher);
 
-class App extends Component {
+class AppContent extends Component {
   static getStores() {
     return [
       store,
@@ -33,6 +33,6 @@ class App extends Component {
   }
 };
 
-const AppContainer = Container.create(App);
+const App = Container.create(AppContent);
 
-export default <AppContainer />;
+export default App;

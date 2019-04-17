@@ -1,4 +1,4 @@
-import Service from 'stores/linen/service';
+import Service from './service';
 
 /**
  * All methods should accept 2 params: state, payload

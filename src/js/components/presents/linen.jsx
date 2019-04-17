@@ -1,6 +1,6 @@
 import React from 'react';
-import Figure from 'presents/linen/figure';
-import dispatcher from 'dispatcher';
+import Figure from './linen/figure';
+import dispatcher from '../../dispatcher';
 
 let ref;
 const mouse = name => e => dispatcher.dispatch({

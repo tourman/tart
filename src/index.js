@@ -1,13 +1,18 @@
+import React from 'react';
 import ReactDOM from 'react-dom';
-import app from 'containers/app-element';
-import dispatcher from 'dispatcher';
-import '../css/style.css';
+import './css/style.css';
+import App from './js/components/containers/app-element';
+import * as serviceWorker from './serviceWorker';
+import dispatcher from './js/dispatcher';
 
-const appEl = window.document.getElementById('app');
-ReactDOM.render(app, appEl);
+ReactDOM.render(<App />, document.getElementById('root'));
 
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
 /* eslint-disable */
-if (MODE === 'development') {
+if (process.env.NODE_ENV === 'development') {
   window._dispatcher = dispatcher;
 }
-/* eslint-emable */
+/* eslint-enable */
