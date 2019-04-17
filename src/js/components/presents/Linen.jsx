@@ -1,5 +1,5 @@
 import React from 'react';
-import Figure from './linen/figure';
+import Figure from './Linen/Figure';
 import dispatcher from '../../dispatcher';
 
 let ref;

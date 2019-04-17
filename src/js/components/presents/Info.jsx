@@ -1,6 +1,6 @@
 import React from 'react';
-import Total from './info/total';
-import ItemSet from './info/item-set';
+import Total from './Info/Total';
+import ItemSet from './Info/ItemSet';
 
 const Info = props => (
   <>

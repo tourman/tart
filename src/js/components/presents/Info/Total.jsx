@@ -1,5 +1,5 @@
 import React from 'react';
-import Bar from './total/bar';
+import Bar from './Total/Bar';
 
 const Total = props => (
   <>

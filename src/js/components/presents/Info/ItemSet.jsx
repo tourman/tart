@@ -1,5 +1,5 @@
 import React from 'react';
-import Item from './item-set/item';
+import Item from './ItemSet/Item';
 
 const ItemSet = props => (
   <div style={{width: `${props.size}px`}}>

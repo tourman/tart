@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Container } from 'flux/utils';
-import AppWrapper from '../presents/app-wrapper';
-import Linen from '../presents/linen';
-import Info from '../presents/info';
+import AppWrapper from '../presents/AppWrapper';
+import Linen from '../presents/Linen';
+import Info from '../presents/Info';
 import Store from '../../stores/linen';
 import dispatcher from '../../dispatcher';
 
