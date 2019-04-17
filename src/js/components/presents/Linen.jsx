@@ -3,12 +3,18 @@ import Figure from './Linen/Figure';
 import dispatcher from '../../dispatcher';
 
 let ref;
+
+const typeMap = new Map()
+  .set(true,  'negative')
+  .set(false, 'positive')
+;
+
 const mouse = name => e => dispatcher.dispatch({
   name,
   payload: {
     x: e.clientX - ref.getBoundingClientRect().left,
     y: e.clientY - ref.getBoundingClientRect().top,
-    type: (e.ctrlKey || e.shiftKey || e.button === 2) ? 'negative' : 'positive',
+    type: typeMap.get(e.ctrlKey || e.shiftKey || e.button === 2),
   },
 });
 
