@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Container } from 'flux/utils';
 import AppWrapper from '../presents/AppWrapper';
-import Linen from '../presents/Linen';
-import Info from '../presents/Info';
+import Tart from './Tart';
 import Store from '../../stores/linen';
 import dispatcher from '../../dispatcher';
 import { mapValues } from 'lodash';
@@ -37,8 +36,7 @@ class AppContent extends Component {
     return (
       <React.StrictMode>
         <AppWrapper>
-          <Linen {...this.state} {...actions} />
-          <Info {...this.state} />
+          <Tart {...this.state} {...actions} />
         </AppWrapper>
       </React.StrictMode>
     );
