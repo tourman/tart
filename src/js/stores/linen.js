@@ -26,9 +26,9 @@ class PictureStore extends ReduceStore {
 
   reduceMutable(state, action) {
     let newState;
-    const isMethod = this.reducer[action.name] && typeof this.reducer[action.name] === 'function';
+    const isMethod = this.reducer[action.type] && typeof this.reducer[action.type] === 'function';
     if (isMethod) {
-      newState = this.reducer[action.name](state, action.payload);
+      newState = this.reducer[action.type](state, action.payload);
     } else {
       newState = state;
     }

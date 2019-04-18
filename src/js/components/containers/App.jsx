@@ -15,8 +15,8 @@ const actionToTypeMap = {
   onFigureLastUpdate: 'figure.last.update',
 };
 
-const actions = mapValues(actionToTypeMap, name => payload => dispatcher.dispatch({
-  name,
+const actions = mapValues(actionToTypeMap, type => payload => dispatcher.dispatch({
+  type,
   payload,
 }))
 
