@@ -1,27 +1,20 @@
 import React from 'react';
-import { mapValues } from 'lodash';
 
 const Figure = props => {
-  const numberProps = {};
+  const style = {};
   const radius = props.size;
   const diameter = 2 * radius;
-  numberProps.left = props.x - radius;
-  numberProps.top = props.y - radius;
-  numberProps.width = diameter;
-  numberProps.height = diameter;
-  numberProps.lineHeight = diameter;
-
-  const stringProps = mapValues(numberProps, number => `${number}px`);
+  style.left = props.x - radius;
+  style.top = props.y - radius;
+  style.width = diameter;
+  style.height = diameter;
+  style.lineHeight = diameter;
 
   const className = [
     'linen__figure',
     'figure',
     `figure_type_${props.type}`,
   ].join(' ');
-
-  const style = {
-    ...stringProps,
-  };
 
   return (
     <div
