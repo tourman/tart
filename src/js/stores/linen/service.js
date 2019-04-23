@@ -51,6 +51,12 @@ class PictureService {
     return state;
   }
 
+  remove(state, { index }) {
+    state.figures.splice(index, 1);
+    state = this.updateWeights(state);
+    return state;
+  }
+
   /**
    * @param {Object[]} payload
    * @param {number} payload[].x

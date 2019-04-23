@@ -8,7 +8,8 @@ const actionToTypeMap = {
   onFigureAdd:        'figure.add',
   onFigureLastResize: 'figure.last.resize',
   onFigureLastUpdate: 'figure.last.update',
-  onChangeName:       'figure.name'
+  onChangeName:       'figure.name',
+  onRemove:           'figure.remove',
 };
 
 const actionsMap = new Map();

@@ -9,6 +9,7 @@ const ItemSet = props => (
         index={index}
         {...figure}
         onChangeName={props.onChangeName}
+        onRemove={props.onRemove}
       /> 
     ))}
   </div>

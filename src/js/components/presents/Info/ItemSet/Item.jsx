@@ -1,6 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Item = props => {
+const ItemInteraction = props => {
+  const index = props.index;
+  if (!props.hover) {
+    return index;
+  }
+  return (
+    <button
+      onClick={e => {
+        e.preventDefault();
+        props.onRemove({ index });
+      }}
+    >
+      x
+    </button>
+  );
+};
+
+const ItemContent = props => {
   const barClassName = [
     'item__bar',
     'item__child',
@@ -19,7 +36,13 @@ const Item = props => {
           props.onChangeName({ name, index });
         }}
       />
-      <span className="item__number item__child">{props.index}</span>
+      <span
+        className="item__number item__child"
+        onMouseEnter={props.onChangeHover.bind(null, true)}
+        onMouseLeave={props.onChangeHover.bind(null, false)}
+      >
+        <ItemInteraction {...props} />
+      </span>
       <div 
         className={barClassName}
         style={{
@@ -28,6 +51,17 @@ const Item = props => {
       >
       </div>
     </div>
+  );
+};
+
+const Item = props => {
+  const [ hover, onChangeHover ] = useState(false);
+  return (
+    <ItemContent
+      {...props}
+      hover={hover}
+      onChangeHover={onChangeHover}
+    />
   );
 };
 

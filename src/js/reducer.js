@@ -29,6 +29,10 @@ const reducer = (prevState, { type, payload }) => {
         service.changeName(draft, payload);
         break;
       }
+      case 'figure.remove': {
+        service.remove(draft, payload);
+        break;
+      }
     }
   });
   return state;
