@@ -26,4 +26,4 @@ const Figure = props => {
   );
 };
 
-export default Figure;
+export default React.memo(Figure);

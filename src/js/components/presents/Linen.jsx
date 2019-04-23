@@ -34,10 +34,15 @@ const Linen = props => {
       onMouseMove={onMouse(props.onFigureLastResize)}
       onMouseUp={onMouse(props.onFigureLastUpdate)}
     >
-      {props.figures.map((figure, index) => (
+      {props.figures.map(({ size, type, x, y }, index) => (
         <Figure
-          {...figure}
-          index={index}
+          {...{
+            x,
+            y,
+            size,
+            type,
+            index,
+          }}
           key={index}
         />
       ))}
