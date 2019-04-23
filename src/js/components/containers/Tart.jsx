@@ -11,13 +11,15 @@ const actionToTypeMap = {
   onChangeName:       'figure.name'
 };
 
+const actionsMap = new Map();
+
 const Tart = props => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const actions = mapValues(actionToTypeMap, type => payload => dispatch({
+  const actions = actionsMap.get(dispatch) || mapValues(actionToTypeMap, type => payload => dispatch({
     type,
     payload,
   }));
-
+  actionsMap.set(dispatch, actions);
   return (
     <>
       <Linen {...state} {...actions} />

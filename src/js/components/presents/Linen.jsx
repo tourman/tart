@@ -50,4 +50,28 @@ const Linen = props => {
   );
 };
 
-export default Linen;
+export default React.memo(Linen, (prevProps, props) => {
+  if (prevProps === props) {
+    return true;
+  }
+  if (prevProps.figures.length !== props.figures.length) {
+    return false;
+  }
+  const weightDiff = prevProps.totalWeight - props.totalWeight;
+  const differentWeights = Math.abs(weightDiff) >= Number.EPSILON;
+  if (differentWeights) {
+    return false;
+  }
+  const propsToCompare = [
+    'size',
+    'onFigureAdd',
+    'onFigureLastResize',
+    'onFigureLastUpdate',
+  ];
+  for (const prop of propsToCompare) {
+    if (prevProps[prop] !== props[prop]) {
+      return false;
+    }
+  }
+  return true;
+});
