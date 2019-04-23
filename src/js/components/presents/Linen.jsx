@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import Figure from './Linen/Figure';
+import { areTotalWeightsDifferent } from '../../helpers';
 
 const typeMap = new Map()
   .set(true,  'negative')
@@ -57,8 +58,7 @@ export default React.memo(Linen, (prevProps, props) => {
   if (prevProps.figures.length !== props.figures.length) {
     return false;
   }
-  const weightDiff = prevProps.totalWeight - props.totalWeight;
-  const differentWeights = Math.abs(weightDiff) >= Number.EPSILON;
+  const differentWeights = areTotalWeightsDifferent(prevProps, props);
   if (differentWeights) {
     return false;
   }

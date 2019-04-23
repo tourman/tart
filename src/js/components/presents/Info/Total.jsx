@@ -1,5 +1,6 @@
 import React from 'react';
 import Bar from './Total/Bar';
+import { areTotalWeightsDifferent } from '../../../helpers';
 
 const Total = props => (
   <>
@@ -20,7 +21,6 @@ const Total = props => (
 );
 
 export default React.memo(Total, (prevProps, props) => {
-  const weightDiff = prevProps.totalWeight - props.totalWeight;
-  const differentWeights = Math.abs(weightDiff) >= Number.EPSILON;
+  const differentWeights = areTotalWeightsDifferent(prevProps, props);
   return !differentWeights;
 });
