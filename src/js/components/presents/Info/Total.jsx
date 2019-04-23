@@ -19,4 +19,8 @@ const Total = props => (
   </>
 );
 
-export default Total;
+export default React.memo(Total, (prevProps, props) => {
+  const weightDiff = prevProps.totalWeight - props.totalWeight;
+  const differentWeights = Math.abs(weightDiff) >= Number.EPSILON;
+  return !differentWeights;
+});
