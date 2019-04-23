@@ -35,7 +35,7 @@ const Linen = props => {
       onMouseMove={onMouse(props.onFigureLastResize)}
       onMouseUp={onMouse(props.onFigureLastUpdate)}
     >
-      {props.figures.map(({ size, type, x, y }, index) => (
+      {props.figures.map(({ id, size, type, x, y }, index) => (
         <Figure
           {...{
             x,
@@ -44,7 +44,7 @@ const Linen = props => {
             type,
             index,
           }}
-          key={index}
+          key={id}
         />
       ))}
     </div>

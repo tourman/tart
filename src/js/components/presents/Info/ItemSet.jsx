@@ -5,7 +5,7 @@ const ItemSet = props => (
   <div style={{width: `${props.size}px`}}>
     {props.figures.map((figure, index) => (
       <Item
-        key={index}
+        key={figure.id}
         index={index}
         {...figure}
         onChangeName={props.onChangeName}

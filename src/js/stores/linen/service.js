@@ -5,6 +5,7 @@ import {
   groupBy,
   sum,
   sumBy,
+  uniqueId,
 } from 'lodash';
 
 class PictureService {
@@ -15,12 +16,14 @@ class PictureService {
       totalWeight: 0,
       figures: [/*
         {
+          id,
           x, //center
           y, //center
           weight,
           relativeWeight,
           size,
           type,
+          name,
         }
       */],
       typeRelativeWeights: {
@@ -38,7 +41,9 @@ class PictureService {
    * @param {string} payload[].type
    */
   add(state, { x, y, type }) {
+    const id = uniqueId('item_');
     const figure = {
+      id,
       x,
       y,
       size: 0,
