@@ -8,6 +8,7 @@ const ItemSet = props => (
         key={index}
         index={index}
         {...figure}
+        onChangeName={props.onChangeName}
       /> 
     ))}
   </div>

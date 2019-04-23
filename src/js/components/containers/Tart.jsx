@@ -8,6 +8,7 @@ const actionToTypeMap = {
   onFigureAdd:        'figure.add',
   onFigureLastResize: 'figure.last.resize',
   onFigureLastUpdate: 'figure.last.update',
+  onChangeName:       'figure.name'
 };
 
 const Tart = props => {
@@ -16,10 +17,11 @@ const Tart = props => {
     type,
     payload,
   }));
+
   return (
     <>
       <Linen {...state} {...actions} />
-      <Info {...state} />
+      <Info {...state} {...actions} />
     </>
   );
 };

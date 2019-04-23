@@ -10,7 +10,15 @@ const Item = props => {
 
   return (
     <div className="item app__element">
-      <input className="item__editor item__child" />
+      <input className="item__editor item__child"
+        value={props.name}
+        onChange={e => {
+          e.preventDefault();
+          const name = e.target.value;
+          const index = props.index;
+          props.onChangeName({ name, index });
+        }}
+      />
       <span className="item__number item__child">{props.index}</span>
       <div 
         className={barClassName}

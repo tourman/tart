@@ -37,13 +37,14 @@ class PictureService {
    * @param {number} payload[].y
    * @param {string} payload[].type
    */
-  add(state, payload) {
+  add(state, { x, y, type }) {
     const figure = {
-      x: payload.x,
-      y: payload.y,
+      x,
+      y,
       size: 0,
       weight: 0,
-      type: payload.type,
+      type,
+      name: '',
     };
     state.figures.push(figure);
     state = this.updateWeights(state);
@@ -60,6 +61,12 @@ class PictureService {
     const weightAndSize = this.getWeightAndSize(figure, payload);
     Object.assign(figure, weightAndSize);
     state = this.updateWeights(state);
+    return state;
+  }
+
+  changeName(state, { name, index }) {
+    const figure = state.figures[index];
+    figure.name = name;
     return state;
   }
 

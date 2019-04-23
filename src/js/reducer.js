@@ -25,6 +25,10 @@ const reducer = (prevState, { type, payload }) => {
         draft.openForResizing = false;
         break;
       }
+      case 'figure.name': {
+        service.changeName(draft, payload);
+        break;
+      }
     }
   });
   return state;
