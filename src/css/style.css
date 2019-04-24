@@ -70,12 +70,13 @@ body {
   text-align: right;
   border: 0;
   background-color: #f0f0f0;
-  width: 220px;
+  width: 210px;
   padding-right: 10px;
+  outline-width: 0;
 }
 
 .item__number {
-  width: 20px;
+  width: 40px;
   text-align: center;
 }
 
