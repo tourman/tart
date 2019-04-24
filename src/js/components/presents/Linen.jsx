@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Figure from './Linen/Figure';
 import { areTotalWeightsDifferent } from '../../helpers';
 
@@ -40,41 +40,7 @@ const LinenContainer = props => {
   );
 };
 
-const Figures = props => props.figures.map(({ id, size, type, x, y }, index) => (
-  <Figure
-    {...{
-      x,
-      y,
-      size,
-      type,
-      index,
-    }}
-    key={id}
-  />
-));
-
-const Linen = props => {
-  return (
-    <LinenContainer {...props}>
-      <Figures {...props} />
-    </LinenContainer>
-  );
-};
-
-export default React.memo(Linen, (prevProps, props) => {
-  if (prevProps === props) {
-    return true;
-  }
-  if (props.openForResizing) {
-    return false;
-  }
-  if (prevProps.figures.length !== props.figures.length) {
-    return false;
-  }
-  const differentWeights = areTotalWeightsDifferent(prevProps, props);
-  if (differentWeights) {
-    return false;
-  }
+const MemoizedLinenContainer = React.memo(LinenContainer, (prevProps, props) => {
   const propsToCompare = [
     'size',
     'onFigureAdd',
@@ -88,3 +54,59 @@ export default React.memo(Linen, (prevProps, props) => {
   }
   return true;
 });
+
+const Figures = props => {
+  const [ figures, setFigures ] = useState(props.figures);
+  useEffect(() => {
+    props.onChangeFigures(setFigures);
+  });
+  return figures.map(({ id, size, type, x, y }, index) => (
+    <Figure
+      {...{
+        x,
+        y,
+        size,
+        type,
+        index,
+      }}
+      key={id}
+    />
+  ));
+};
+
+const areEqualFigures = (prevProps, props) => {
+  if (prevProps.figures.length !== props.figures.length) {
+    return false;
+  }
+  if (props.openForResizing) {
+    return false;
+  }
+  const differentWeights = areTotalWeightsDifferent(prevProps, props);
+  if (differentWeights) {
+    return false;
+  }
+  return true;
+};
+
+const Linen = props => {
+  const figuresRef = useRef({
+    setFigures: () => {},
+    areEqualFigures: () => false,
+  });
+  useEffect(() => {
+    const equalFigures = figuresRef.current.areEqualFigures(props);
+    equalFigures || figuresRef.current.setFigures(props.figures);
+    figuresRef.current.areEqualFigures = areEqualFigures.bind(null, props);
+  });
+  const onChangeFigures = setFigures => figuresRef.current.setFigures = setFigures;
+  return (
+    <MemoizedLinenContainer {...props}>
+      <Figures
+        {...props}
+        onChangeFigures={onChangeFigures}
+      />
+    </MemoizedLinenContainer>
+  );
+};
+
+export default React.memo(Linen);
