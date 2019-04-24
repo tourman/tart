@@ -65,6 +65,9 @@ export default React.memo(Linen, (prevProps, props) => {
   if (prevProps === props) {
     return true;
   }
+  if (props.openForResizing) {
+    return false;
+  }
   if (prevProps.figures.length !== props.figures.length) {
     return false;
   }
