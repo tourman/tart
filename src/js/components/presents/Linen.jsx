@@ -20,7 +20,7 @@ const handleMouse = (el, action) => e => {
   });
 };
 
-const Linen = props => {
+const LinenContainer = props => {
   const el = useRef(null);
   const onMouse = handleMouse.bind(null, el);
   return (
@@ -35,19 +35,29 @@ const Linen = props => {
       onMouseMove={onMouse(props.onFigureLastResize)}
       onMouseUp={onMouse(props.onFigureLastUpdate)}
     >
-      {props.figures.map(({ id, size, type, x, y }, index) => (
-        <Figure
-          {...{
-            x,
-            y,
-            size,
-            type,
-            index,
-          }}
-          key={id}
-        />
-      ))}
+      {props.children}
     </div>
+  );
+};
+
+const Figures = props => props.figures.map(({ id, size, type, x, y }, index) => (
+  <Figure
+    {...{
+      x,
+      y,
+      size,
+      type,
+      index,
+    }}
+    key={id}
+  />
+));
+
+const Linen = props => {
+  return (
+    <LinenContainer {...props}>
+      <Figures {...props} />
+    </LinenContainer>
   );
 };
 
