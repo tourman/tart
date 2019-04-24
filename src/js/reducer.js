@@ -2,6 +2,14 @@ import { merge } from 'lodash';
 import Service from './stores/linen/service';
 import produce from 'immer';
 
+export const
+  FIGURE_ADD         = 'figure.add',
+  FIGURE_LAST_RESIZE = 'figure.last.resize',
+  FIGURE_LAST_UPDATE = 'figure.last.update',
+  FIGURE_NAME        = 'figure.name',
+  FIGURE_REMOVE      = 'figure.remove'
+;
+
 const service = new Service();
 
 export const initialState = service.getInitialState();
@@ -9,27 +17,27 @@ export const initialState = service.getInitialState();
 const reducer = (prevState, { type, payload }) => {
   const state = produce(prevState, draft => {
     switch(type) {
-      case 'figure.add': {
+      case FIGURE_ADD: {
         service.add(draft, payload);
         draft.openForResizing = true;
         break;
       }
-      case 'figure.last.resize': {
+      case FIGURE_LAST_RESIZE: {
         if (draft.openForResizing) {
           service.updateLast(draft, payload);
         }
         break;
       }
-      case 'figure.last.update': {
+      case FIGURE_LAST_UPDATE: {
         service.updateLast(draft, payload);
         draft.openForResizing = false;
         break;
       }
-      case 'figure.name': {
+      case FIGURE_NAME: {
         service.changeName(draft, payload);
         break;
       }
-      case 'figure.remove': {
+      case FIGURE_REMOVE: {
         service.remove(draft, payload);
         break;
       }
