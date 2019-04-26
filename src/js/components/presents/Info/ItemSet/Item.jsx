@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { mapValues, debounce } from 'lodash';
+import { mapValues } from 'lodash';
 
-const ItemInteractiveName = props => {
+const focusItemInteractiveName = ItemInteractiveName => props => {
   const ref = useRef(null);
   const timeout = useRef(null);
   useEffect(() => {
@@ -11,6 +11,15 @@ const ItemInteractiveName = props => {
       props.silentFocus(() => ref.current.focus());
     }, 50));
   });
+  return (
+    <ItemInteractiveName
+      {...props}
+      ref={ref}
+    />
+  );
+};
+
+const ItemInteractiveName = focusItemInteractiveName(React.forwardRef((props, ref) => {
   return (
     <input className="item__editor item__child"
       ref={ref}
@@ -23,7 +32,7 @@ const ItemInteractiveName = props => {
       }}
     />
   );
-};
+}));
 
 const controlsHoverMap = new Map()
   .set(true, ({ onRemove, index }) => (
