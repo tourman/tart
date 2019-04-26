@@ -10,7 +10,7 @@ const focusItemInteractiveName = ItemInteractiveName => {
       clearTimeout(timeout.current);
       const isBlured = document.activeElement !== ref.current;
       isBlured && props.focus && (timeout.current = setTimeout(() => {
-        props.silentFocus(() => ref.current.focus());
+        props.silentFocus(() => ref.current && ref.current.focus());
       }, 50));
     });
     return (
