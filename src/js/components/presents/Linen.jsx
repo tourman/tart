@@ -84,29 +84,27 @@ const MemoizedFigures = React.memo(Figures, (prevProps, props) => {
   return true;
 });
 
-const FiguresContainer = props => {
-  const [ state, setState ] = useState(props);
-  useEffect(() => {
-    props.onChangeFigures(setState);
-  });
-  return (
-    <MemoizedFigures
-      {...state}
-    />
-  );
+class FiguresContainer extends React.Component {
+  render() {
+    const props = this.state || this.props;
+    return (
+      <MemoizedFigures
+        {...props}
+      />
+    );
+  }
 };
 
 const Linen = props => {
-  const figuresRef = useRef({
-    setState: () => {},
+  const figuresRef = useRef(null);
+  useEffect(() => {
+    figuresRef.current.setState(props);
   });
-  useEffect(() => figuresRef.current.setState(props));
-  const onChangeFigures = setState => figuresRef.current.setState = setState;
   return (
     <MemoizedLinenWrapper {...props}>
       <FiguresContainer
         {...props}
-        onChangeFigures={onChangeFigures}
+        ref={figuresRef}
       />
     </MemoizedLinenWrapper>
   );
