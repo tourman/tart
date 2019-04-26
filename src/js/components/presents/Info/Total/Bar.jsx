@@ -5,6 +5,7 @@ const Bar = props => {
     'app__element',
     'info-total-bar',
     'figure',
+    'figure_throttle',
     `figure_type_${props.type}`,
   ].join(' ');
 

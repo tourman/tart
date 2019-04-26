@@ -39,6 +39,10 @@ body {
   margin-left: 20px;
 }
 
+.figure_throttle {
+  transition: all 200ms ease-in-out;
+}
+
 .figure_type_positive {
   background-color: rgba(0, 127, 0, 0.5);
 }

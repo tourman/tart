@@ -72,6 +72,8 @@ const ItemChart = props => {
   const barClassName = [
     'item__bar',
     'item__child',
+    'figure',
+    'figure_throttle',
     `figure_type_${props.type}`,
   ].join(' ');
   const width = `${props.relativeWeight * 220}px`;
