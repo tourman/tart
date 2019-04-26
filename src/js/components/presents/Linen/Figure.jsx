@@ -16,10 +16,21 @@ const Figure = props => {
     `figure_type_${props.type}`,
   ].join(' ');
 
+  const draggable = !props.weightChanging;
+  let handlers = {};
+  if (draggable) {
+    handlers = {
+      onDragStart: props.onMouse(props.onFigureMoveStart, props.index),
+      onDragEnd: props.onMouse(props.onFigureMoveEnd, props.index),
+    };
+  }
+
   return (
     <div
       className={className}
       style={style}
+      draggable={draggable}
+      {...handlers}
     >
       {props.index}
     </div>

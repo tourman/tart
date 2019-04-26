@@ -1,13 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Figure from './Linen/Figure';
 import { areTotalWeightsDifferent } from '../../helpers';
+import { pickBy } from 'lodash';
 
 const typeMap = new Map()
   .set(true,  'negative')
   .set(false, 'positive')
 ;
 
-const handleMouse = (el, action) => e => {
+const handleMouse = (el, action, index) => e => {
   const rect = el.current.getBoundingClientRect();
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
@@ -17,12 +18,20 @@ const handleMouse = (el, action) => e => {
     x,
     y,
     type,
+    index,
   });
 };
 
 const LinenWrapper = props => {
   const el = useRef(null);
   const onMouse = handleMouse.bind(null, el);
+  const children = React.Children.map(props.children, el => React.cloneElement(
+    el,
+    {
+      ...el.props,
+      onMouse,
+    }
+  ));
   return (
     <div
       className="linen app__element"
@@ -31,11 +40,14 @@ const LinenWrapper = props => {
         height: props.size,
       }}
       ref={el}
-      onMouseDown={onMouse(props.onFigureAdd)}
+      onMouseDown={e => {
+        const current = e.target === el.current;
+        current && handleMouse(el, props.onFigureAdd)(e);
+      }}
       onMouseMove={onMouse(props.onFigureLastResize)}
       onMouseUp={onMouse(props.onFigureLastUpdate)}
     >
-      {props.children}
+      {children}
     </div>
   );
 };
@@ -56,6 +68,7 @@ const MemoizedLinenWrapper = React.memo(LinenWrapper, (prevProps, props) => {
 });
 
 const Figures = props => {
+  const callbacks = pickBy(props, prop => typeof prop === 'function');
   return props.figures.map(({ id, size, type, x, y }, index) => (
     <Figure
       {...{
@@ -64,6 +77,7 @@ const Figures = props => {
         size,
         type,
         index,
+        ...callbacks,
       }}
       key={id}
     />
@@ -71,6 +85,9 @@ const Figures = props => {
 };
 
 const MemoizedFigures = React.memo(Figures, (prevProps, props) => {
+  if (prevProps.move !== props.move) {
+    return false;
+  }
   if (prevProps.figures.length !== props.figures.length) {
     return false;
   }
@@ -86,7 +103,10 @@ const MemoizedFigures = React.memo(Figures, (prevProps, props) => {
 
 class FiguresContainer extends React.Component {
   render() {
-    const props = this.state || this.props;
+    const props = {
+      ...this.props,
+      ...this.state,
+    };
     return (
       <MemoizedFigures
         {...props}

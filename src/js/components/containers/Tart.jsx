@@ -8,7 +8,9 @@ import reducer, {
   FIGURE_LAST_RESIZE,
   FIGURE_LAST_UPDATE,
   FIGURE_NAME,
-  FIGURE_REMOVE
+  FIGURE_REMOVE,
+  FIGURE_MOVE_START,
+  FIGURE_MOVE_END
 } from '../../reducer';
 
 const actionToTypeMap = {
@@ -17,6 +19,8 @@ const actionToTypeMap = {
   onFigureLastUpdate: FIGURE_LAST_UPDATE,
   onChangeName:       FIGURE_NAME,
   onRemove:           FIGURE_REMOVE,
+  onFigureMoveStart:  FIGURE_MOVE_START,
+  onFigureMoveEnd:    FIGURE_MOVE_END,
 };
 
 const actionsMap = new Map();

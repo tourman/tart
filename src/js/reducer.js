@@ -7,7 +7,9 @@ export const
   FIGURE_LAST_RESIZE = 'figure.last.resize',
   FIGURE_LAST_UPDATE = 'figure.last.update',
   FIGURE_NAME        = 'figure.name',
-  FIGURE_REMOVE      = 'figure.remove'
+  FIGURE_REMOVE      = 'figure.remove',
+  FIGURE_MOVE_START  = 'figure.move.start',
+  FIGURE_MOVE_END    = 'figure.move.end'
 ;
 
 const service = new Service();
@@ -25,14 +27,16 @@ const reducer = (prevState, { type, payload }) => {
       case FIGURE_LAST_RESIZE: {
         if (draft.openForResizing) {
           service.updateLast(draft, payload);
+          draft.weightChanging = true;
         }
-        draft.weightChanging = true;
         break;
       }
       case FIGURE_LAST_UPDATE: {
-        service.updateLast(draft, payload);
-        draft.openForResizing = false;
-        draft.weightChanging = false;
+        if (draft.openForResizing) {
+          service.updateLast(draft, payload);
+          draft.weightChanging = false;
+          draft.openForResizing = false;
+        }
         break;
       }
       case FIGURE_NAME: {
@@ -41,6 +45,21 @@ const reducer = (prevState, { type, payload }) => {
       }
       case FIGURE_REMOVE: {
         service.remove(draft, payload);
+        break;
+      }
+      case FIGURE_MOVE_START: {
+        break;
+      }
+      case FIGURE_MOVE_END: {
+        const { index, x, y } = payload;
+        const figure = draft.figures[index];
+        Object.assign(figure, {
+          x,
+          y,
+        });
+        draft.move = {
+          figure,
+        };
         break;
       }
     }
