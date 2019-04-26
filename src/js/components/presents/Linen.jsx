@@ -20,7 +20,7 @@ const handleMouse = (el, action) => e => {
   });
 };
 
-const LinenContainer = props => {
+const LinenWrapper = props => {
   const el = useRef(null);
   const onMouse = handleMouse.bind(null, el);
   return (
@@ -40,7 +40,7 @@ const LinenContainer = props => {
   );
 };
 
-const MemoizedLinenContainer = React.memo(LinenContainer, (prevProps, props) => {
+const MemoizedLinenWrapper = React.memo(LinenWrapper, (prevProps, props) => {
   const propsToCompare = [
     'size',
     'onFigureAdd',
@@ -56,11 +56,7 @@ const MemoizedLinenContainer = React.memo(LinenContainer, (prevProps, props) => 
 });
 
 const Figures = props => {
-  const [ figures, setFigures ] = useState(props.figures);
-  useEffect(() => {
-    props.onChangeFigures(setFigures);
-  });
-  return figures.map(({ id, size, type, x, y }, index) => (
+  return props.figures.map(({ id, size, type, x, y }, index) => (
     <Figure
       {...{
         x,
@@ -74,7 +70,7 @@ const Figures = props => {
   ));
 };
 
-const areEqualFigures = (prevProps, props) => {
+const MemoizedFigures = React.memo(Figures, (prevProps, props) => {
   if (prevProps.figures.length !== props.figures.length) {
     return false;
   }
@@ -86,26 +82,33 @@ const areEqualFigures = (prevProps, props) => {
     return false;
   }
   return true;
+});
+
+const FiguresContainer = props => {
+  const [ state, setState ] = useState(props);
+  useEffect(() => {
+    props.onChangeFigures(setState);
+  });
+  return (
+    <MemoizedFigures
+      {...state}
+    />
+  );
 };
 
 const Linen = props => {
   const figuresRef = useRef({
-    setFigures: () => {},
-    areEqualFigures: () => false,
+    setState: () => {},
   });
-  useEffect(() => {
-    const equalFigures = figuresRef.current.areEqualFigures(props);
-    equalFigures || figuresRef.current.setFigures(props.figures);
-    figuresRef.current.areEqualFigures = areEqualFigures.bind(null, props);
-  });
-  const onChangeFigures = setFigures => figuresRef.current.setFigures = setFigures;
+  useEffect(() => figuresRef.current.setState(props));
+  const onChangeFigures = setState => figuresRef.current.setState = setState;
   return (
-    <MemoizedLinenContainer {...props}>
-      <Figures
+    <MemoizedLinenWrapper {...props}>
+      <FiguresContainer
         {...props}
         onChangeFigures={onChangeFigures}
       />
-    </MemoizedLinenContainer>
+    </MemoizedLinenWrapper>
   );
 };
 
