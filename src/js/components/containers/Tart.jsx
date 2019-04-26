@@ -28,10 +28,15 @@ const Tart = props => {
     payload,
   }));
   actionsMap.set(dispatch, actions);
+  const childrenProps = {
+    ...props,
+    ...state,
+    ...actions,
+  };
   return (
     <>
-      <Linen {...state} {...actions} />
-      <Info {...state} {...actions} />
+      <Linen {...childrenProps} />
+      <Info {...childrenProps} />
     </>
   );
 };

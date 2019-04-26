@@ -7,7 +7,9 @@ const ItemInteractiveName = props => {
   useEffect(() => {
     clearTimeout(timeout.current);
     const isBlured = document.activeElement !== ref.current;
-    isBlured && props.focus && (timeout.current = setTimeout(() => ref.current.focus(), 50));
+    isBlured && props.focus && (timeout.current = setTimeout(() => {
+      props.silentFocus(() => ref.current.focus());
+    }, 50));
   });
   return (
     <input className="item__editor item__child"
