@@ -1,25 +1,28 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { mapValues } from 'lodash';
 
-const focusItemInteractiveName = ItemInteractiveName => props => {
-  const ref = useRef(null);
-  const timeout = useRef(null);
-  useEffect(() => {
-    clearTimeout(timeout.current);
-    const isBlured = document.activeElement !== ref.current;
-    isBlured && props.focus && (timeout.current = setTimeout(() => {
-      props.silentFocus(() => ref.current.focus());
-    }, 50));
-  });
-  return (
-    <ItemInteractiveName
-      {...props}
-      ref={ref}
-    />
-  );
+const focusItemInteractiveName = ItemInteractiveName => {
+  const ItemInteractiveNameWithRef = React.forwardRef(ItemInteractiveName);
+  return props => {
+    const ref = useRef(null);
+    const timeout = useRef(null);
+    useEffect(() => {
+      clearTimeout(timeout.current);
+      const isBlured = document.activeElement !== ref.current;
+      isBlured && props.focus && (timeout.current = setTimeout(() => {
+        props.silentFocus(() => ref.current.focus());
+      }, 50));
+    });
+    return (
+      <ItemInteractiveNameWithRef
+        {...props}
+        ref={ref}
+      />
+    );
+  };
 };
 
-const ItemInteractiveName = focusItemInteractiveName(React.forwardRef((props, ref) => {
+const ItemInteractiveName = focusItemInteractiveName((props, ref) => {
   return (
     <input className="item__editor item__child"
       ref={ref}
@@ -32,7 +35,7 @@ const ItemInteractiveName = focusItemInteractiveName(React.forwardRef((props, re
       }}
     />
   );
-}));
+});
 
 const controlsHoverMap = new Map()
   .set(true, ({ onRemove, index }) => (
