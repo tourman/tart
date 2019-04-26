@@ -1,16 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { mapValues } from 'lodash';
-
-const focusMap = new Map()
-  .set(true, 'focus')
-  .set(false, 'blur')
-;
+import { mapValues, debounce } from 'lodash';
 
 const ItemInteractiveName = props => {
   const ref = useRef(null);
+  const timeout = useRef(null);
   useEffect(() => {
-    const focusMethod = focusMap.get(props.focus);
-    ref.current[focusMethod]();
+    clearTimeout(timeout.current);
+    const isBlured = document.activeElement !== ref.current;
+    isBlured && props.focus && (timeout.current = setTimeout(() => ref.current.focus(), 50));
   });
   return (
     <input className="item__editor item__child"
