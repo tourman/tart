@@ -74,7 +74,7 @@ const MemoizedFigures = React.memo(Figures, (prevProps, props) => {
   if (prevProps.figures.length !== props.figures.length) {
     return false;
   }
-  if (props.openForResizing) {
+  if (props.weightChanging) {
     return false;
   }
   const differentWeights = areTotalWeightsDifferent(prevProps, props);

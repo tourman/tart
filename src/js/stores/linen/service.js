@@ -31,6 +31,7 @@ class PictureService {
         positive: 0,
         negative: 0,
       },
+      weightChanging: false,
     };
     return state;
   }

@@ -26,11 +26,13 @@ const reducer = (prevState, { type, payload }) => {
         if (draft.openForResizing) {
           service.updateLast(draft, payload);
         }
+        draft.weightChanging = true;
         break;
       }
       case FIGURE_LAST_UPDATE: {
         service.updateLast(draft, payload);
         draft.openForResizing = false;
+        draft.weightChanging = false;
         break;
       }
       case FIGURE_NAME: {

@@ -13,11 +13,10 @@ const Info = props => (
 const throttleInfo = Info => {
   const infoMap = new Map()
     .set(false, Info)
-    .set(void 0, Info)
   ;
   const ThrottledInfo = props => {
     infoMap.get(true) || infoMap.set(true, throttle(Info, props.throttleDelay));
-    const ThrottledInfo = infoMap.get(props.openForResizing);
+    const ThrottledInfo = infoMap.get(props.weightChanging);
     return (<ThrottledInfo {...props} />);
   };
   return ThrottledInfo;
