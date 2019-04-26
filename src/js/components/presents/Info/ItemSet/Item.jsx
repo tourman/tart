@@ -1,17 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { mapValues } from 'lodash';
 
-const ItemInteractiveName = props => (
-  <input className="item__editor item__child"
-    value={props.name}
-    onChange={e => {
-      e.preventDefault();
-      const name = e.target.value;
-      const index = props.index;
-      props.onChangeName({ name, index });
-    }}
-  />
-);
+const focusMap = new Map()
+  .set(true, 'focus')
+  .set(false, 'blur')
+;
+
+const ItemInteractiveName = props => {
+  const ref = useRef(null);
+  useEffect(() => {
+    const focusMethod = focusMap.get(props.focus);
+    ref.current[focusMethod]();
+  });
+  return (
+    <input className="item__editor item__child"
+      ref={ref}
+      value={props.name}
+      onChange={e => {
+        e.preventDefault();
+        const name = e.target.value;
+        const index = props.index;
+        props.onChangeName({ name, index });
+      }}
+    />
+  );
+};
 
 const controlsHoverMap = new Map()
   .set(true, ({ onRemove, index }) => (

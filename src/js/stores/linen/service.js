@@ -24,6 +24,7 @@ class PictureService {
           size,
           type,
           name,
+          focus,
         }
       */],
       typeRelativeWeights: {
@@ -50,6 +51,7 @@ class PictureService {
       weight: 0,
       type,
       name: '',
+      focus: false,
     };
     state.figures.push(figure);
     state = this.updateWeights(state);
@@ -68,7 +70,9 @@ class PictureService {
    * @param {number} payload[].y
    */
   updateLast(state, payload) {
+    state.figures.forEach(figure => figure.focus = false);
     const figure = last(state.figures);
+    figure.focus = true;
     const weightAndSize = this.getWeightAndSize(figure, payload);
     Object.assign(figure, weightAndSize);
     state = this.updateWeights(state);
