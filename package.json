@@ -13,6 +13,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -30,7 +32,7 @@
   "bugs": {
     "url": "https://github.com/tourman/tart/issues"
   },
-  "homepage": "https://github.com/tourman/tart#readme",
+  "homepage": "https://tourman.github.io/tart",
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -39,5 +41,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "gh-pages": "^2.0.1"
+  }
 }
