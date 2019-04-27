@@ -1,6 +1,6 @@
 import React from 'react';
 import Item from './ItemSet/Item';
-import { pickBy } from 'lodash';
+import { pickBy } from '../../../helpers';
 
 const ItemSet = props => {
   const callbacks = pickBy(props, prop => typeof prop === 'function');

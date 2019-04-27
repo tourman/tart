@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { mapValues } from 'lodash';
+import { mapValues } from '../../../../helpers';
 
 const focusItemInteractiveName = ItemInteractiveName => {
   const ItemInteractiveNameWithRef = React.forwardRef(ItemInteractiveName);

@@ -6,7 +6,7 @@ import {
   sum,
   sumBy,
   uniqueId,
-} from 'lodash';
+} from '../../helpers';
 
 class PictureService {
   getInitialState() {

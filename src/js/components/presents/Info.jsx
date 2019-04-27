@@ -1,7 +1,7 @@
 import React from 'react';
 import Total from './Info/Total';
 import ItemSet from './Info/ItemSet';
-import { throttle } from 'lodash';
+import { throttle } from '../../helpers';
 
 const Info = props => (
   <>

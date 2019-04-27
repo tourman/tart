@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Figure from './Linen/Figure';
 import { areTotalWeightsDifferent } from '../../helpers';
-import { pickBy } from 'lodash';
+import { pickBy } from '../../helpers';
 
 const typeMap = new Map()
   .set(true,  'negative')

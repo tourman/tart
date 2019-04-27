@@ -1,4 +1,4 @@
-import { merge } from 'lodash';
+import { merge } from './helpers';
 import Service from './stores/linen/service';
 import produce from 'immer';
 

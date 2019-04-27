@@ -1,7 +1,7 @@
 import React, { useReducer, useEffect } from 'react';
 import Linen from '../presents/Linen';
 import Info from '../presents/Info';
-import { mapValues } from 'lodash';
+import { mapValues } from '../../helpers';
 import reducer, {
   initialState,
   FIGURE_ADD,
