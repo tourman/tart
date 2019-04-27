@@ -1,5 +1,4 @@
 import mapValues from 'lodash/mapValues';
-import throttle from 'lodash/throttle';
 import pickBy from 'lodash/pickBy';
 import merge from 'lodash/merge';
 import last from 'lodash/last';
@@ -7,6 +6,17 @@ import groupBy from 'lodash/groupBy';
 import sum from 'lodash/sum';
 import sumBy from 'lodash/sumBy';
 import uniqueId from 'lodash/uniqueId';
+
+const throttle = (fn, delay = 0) => {
+  let result;
+  const proceed = () => {
+    setTimeout(() => result = void 0, delay);
+  };
+  return (...args) => {
+    result = result || proceed() || fn(...args);
+    return result;
+  };
+};
 
 const chain = arg => {
   const methodMap = {
