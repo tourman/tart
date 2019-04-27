@@ -13,7 +13,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build --stats && webpack-bundle-analyzer build/bundle-stats.json -m static -r build/bundle-stats.html -O",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "predeploy": "yarn build",
     "deploy": "gh-pages -d build",
