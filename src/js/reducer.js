@@ -9,7 +9,8 @@ export const
   FIGURE_NAME        = 'figure.name',
   FIGURE_REMOVE      = 'figure.remove',
   FIGURE_MOVE_START  = 'figure.move.start',
-  FIGURE_MOVE_END    = 'figure.move.end'
+  FIGURE_MOVE_END    = 'figure.move.end',
+  READ               = 'read'
 ;
 
 const service = new Service();
@@ -60,6 +61,10 @@ const reducer = (prevState, { type, payload }) => {
         draft.move = {
           figure,
         };
+        break;
+      }
+      case READ: {
+        Object.assign(draft, payload);
         break;
       }
     }

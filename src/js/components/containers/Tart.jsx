@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import Linen from '../presents/Linen';
 import Info from '../presents/Info';
 import { mapValues } from 'lodash';
@@ -10,7 +10,8 @@ import reducer, {
   FIGURE_NAME,
   FIGURE_REMOVE,
   FIGURE_MOVE_START,
-  FIGURE_MOVE_END
+  FIGURE_MOVE_END,
+  READ
 } from '../../reducer';
 
 const actionToTypeMap = {
@@ -21,7 +22,24 @@ const actionToTypeMap = {
   onRemove:           FIGURE_REMOVE,
   onFigureMoveStart:  FIGURE_MOVE_START,
   onFigureMoveEnd:    FIGURE_MOVE_END,
+  onRead:             READ,
 };
+
+const readState = async state => new Promise(resolve => {
+  setTimeout(() => {
+    const rawSavedState = localStorage.getItem('tart.state') || null;
+    const savedState = JSON.parse(rawSavedState);
+    resolve(savedState || state);
+  });
+});
+
+const writeState = async state => new Promise(resove => {
+  setTimeout(() => {
+    const rawState = JSON.stringify(state);
+    localStorage.setItem('tart.state', rawState);
+    resove();
+  });
+});
 
 const actionsMap = new Map();
 
@@ -37,6 +55,18 @@ const Tart = props => {
     ...state,
     ...actions,
   };
+  useEffect(() => {
+    const init = state === initialState;
+    if (init) {
+      (async () => {
+        const savedState = await readState(state);
+        actions.onRead(savedState);
+        return savedState;
+      })();
+    } else {
+      writeState(state);
+    }
+  });
   return (
     <>
       <Linen {...childrenProps} />
