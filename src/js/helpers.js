@@ -5,7 +5,6 @@ import last from 'lodash/last';
 import groupBy from 'lodash/groupBy';
 import sum from 'lodash/sum';
 import sumBy from 'lodash/sumBy';
-import uniqueId from 'lodash/uniqueId';
 
 const throttle = (fn, delay = 0) => {
   let result;
@@ -16,6 +15,11 @@ const throttle = (fn, delay = 0) => {
     result = result || proceed() || fn(...args);
     return result;
   };
+};
+
+const uniqueId = base => {
+  const id = Math.floor(Math.random() * Math.pow(36, 10)).toString(36);
+  return base + id;
 };
 
 const chain = arg => {
