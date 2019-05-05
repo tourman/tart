@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Figure from './Linen/Figure';
 import { areTotalWeightsDifferent } from '../../helpers';
-import { pickBy } from '../../helpers';
+import { pickBy, compose } from '../../helpers';
 
 const typeMap = new Map()
   .set(true,  'negative')
@@ -22,16 +22,27 @@ const handleMouse = (el, action, index) => e => {
   });
 };
 
-const LinenWrapper = props => {
-  const el = useRef(null);
-  const onMouse = handleMouse.bind(null, el);
-  const children = React.Children.map(props.children, el => React.cloneElement(
-    el,
+const hasOnMouse = Component => props => {
+  const ref = useRef(null);
+  const onMouse = handleMouse.bind(null, ref);
+  const children = React.Children.map(props.children, child => React.cloneElement(
+    child,
     {
-      ...el.props,
+      ...child.props,
       onMouse,
     }
   ));
+  return (
+    <Component
+      {...props}
+      children={children}
+      onMouse={onMouse}
+      ref={ref}
+    />
+  );
+};
+
+const LinenWrapper = React.forwardRef((props, ref) => {
   return (
     <div
       className="linen app__element"
@@ -39,20 +50,20 @@ const LinenWrapper = props => {
         width: props.size,
         height: props.size,
       }}
-      ref={el}
+      ref={ref}
       onMouseDown={e => {
-        const current = e.target === el.current;
-        current && handleMouse(el, props.onFigureAdd)(e);
+        const current = e.target === ref.current;
+        current && handleMouse(ref, props.onFigureAdd)(e);
       }}
-      onMouseMove={onMouse(props.onFigureLastResize)}
-      onMouseUp={onMouse(props.onFigureLastUpdate)}
+      onMouseMove={props.onMouse(props.onFigureLastResize)}
+      onMouseUp={props.onMouse(props.onFigureLastUpdate)}
     >
-      {children}
+      {props.children}
     </div>
   );
-};
+});
 
-const MemoizedLinenWrapper = React.memo(LinenWrapper, (prevProps, props) => {
+const areEqual = (prevProps, props) => {
   const propsToCompare = [
     'size',
     'onFigureAdd',
@@ -65,7 +76,12 @@ const MemoizedLinenWrapper = React.memo(LinenWrapper, (prevProps, props) => {
     }
   }
   return true;
-});
+};
+
+const MemoizedLinenWrapper = compose(
+  hasOnMouse,
+  Component => React.memo(Component, areEqual),
+)(LinenWrapper);
 
 const Figures = props => {
   const callbacks = pickBy(props, prop => typeof prop === 'function');

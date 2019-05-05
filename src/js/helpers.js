@@ -22,6 +22,8 @@ const uniqueId = base => {
   return base + id;
 };
 
+const compose = (...chain) => Component => chain.reduce((Component, hoc) => hoc(Component), Component);
+
 const chain = arg => {
   const methodMap = {
     mapValues,
@@ -33,6 +35,7 @@ const chain = arg => {
     sum,
     sumBy,
     uniqueId,
+    compose,
   };
   const boundMethodMap = mapValues(methodMap, method => (...args) => {
     const result = method(arg, ...args);
@@ -58,5 +61,6 @@ export {
   groupBy,
   sum,
   sumBy,
-  uniqueId
+  uniqueId,
+  compose
 };
