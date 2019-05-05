@@ -93,11 +93,11 @@ const areEqual = (prevProps, props) => {
   return true;
 };
 
-const MemoizedLinenWrapper = compose(
+const MemoizedLinenWrapper = compose(LinenWrapper)(
   hasMouseHandlers,
   hasOnMouse,
   Component => React.memo(Component, areEqual),
-)(LinenWrapper);
+);
 
 const Figures = props => {
   const callbacks = pickBy(props, prop => typeof prop === 'function');

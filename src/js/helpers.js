@@ -22,7 +22,7 @@ const uniqueId = base => {
   return base + id;
 };
 
-const compose = (...chain) => Component => chain.reduce((Component, hoc) => hoc(Component), Component);
+const compose = Component => (...chain) => chain.reduce((Component, hoc) => hoc(Component), Component);
 
 const chain = arg => {
   const methodMap = {
