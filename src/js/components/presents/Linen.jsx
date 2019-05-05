@@ -42,6 +42,24 @@ const hasOnMouse = Component => props => {
   );
 };
 
+const hasMouseHandlers = Component => React.forwardRef((props, ref) => {
+  const handlers = {
+    onMouseDown: e => {
+      const current = e.target === ref.current;
+      current && handleMouse(ref, props.onFigureAdd)(e);
+    },
+    onMouseMove: props.onMouse(props.onFigureLastResize),
+    onMouseUp: props.onMouse(props.onFigureLastUpdate),
+  };
+  return (
+    <Component
+      {...props}
+      {...handlers}
+      ref={ref}
+    />
+  );
+});
+
 const LinenWrapper = React.forwardRef((props, ref) => {
   return (
     <div
@@ -51,12 +69,9 @@ const LinenWrapper = React.forwardRef((props, ref) => {
         height: props.size,
       }}
       ref={ref}
-      onMouseDown={e => {
-        const current = e.target === ref.current;
-        current && handleMouse(ref, props.onFigureAdd)(e);
-      }}
-      onMouseMove={props.onMouse(props.onFigureLastResize)}
-      onMouseUp={props.onMouse(props.onFigureLastUpdate)}
+      onMouseDown={props.onMouseDown}
+      onMouseMove={props.onMouseMove}
+      onMouseUp=  {props.onMouseUp}
     >
       {props.children}
     </div>
@@ -79,6 +94,7 @@ const areEqual = (prevProps, props) => {
 };
 
 const MemoizedLinenWrapper = compose(
+  hasMouseHandlers,
   hasOnMouse,
   Component => React.memo(Component, areEqual),
 )(LinenWrapper);
